@@ -34,11 +34,11 @@ def ReturnArticles():
     except:
         pass
     cursor = db.execute_sql('SELECT body FROM articlemodel')
-    links=[]
+    bodies=[]
     for row in cursor.fetchall():
-        links.append(row[0])
+        bodies.append(row[0])
     db.close()
-    return links
+    return bodies
 
 def initialize_db():
     db.connect()
