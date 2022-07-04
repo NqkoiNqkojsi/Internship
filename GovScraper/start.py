@@ -9,6 +9,11 @@ import model.articles as ModelArticles
 import model.link as ModelLink
 import sys     
 
+def cleaning():
+    if "twisted.internet.reactor" in sys.modules: 
+        print("trying to delete reactor")
+        del sys.modules["twisted.internet.reactor"]
+
 def start_program():
     try:
         ModelArticles.initialize_db()
@@ -17,24 +22,17 @@ def start_program():
         return "Error with initializing DBs"
 
     process = CrawlerProcess(get_project_settings())
-    if "twisted.internet.reactor" in sys.modules: 
-        print("trying to delete reactor")
-        del sys.modules["twisted.internet.reactor"]
+    
     process.start()
+    cleaning()
     process.crawl(GovLinkSpider)
-    if "twisted.internet.reactor" in sys.modules: 
-        print("trying to delete reactor")
-        del sys.modules["twisted.internet.reactor"]
+    cleaning()
     process.start()
     process.crawl(GovArticleSpider)
-    if "twisted.internet.reactor" in sys.modules: 
-        print("trying to delete reactor")
-        del sys.modules["twisted.internet.reactor"]
+    cleaning()
     process.start()
     process.crawl(GovUpdateLinkSpider)
-    if "twisted.internet.reactor" in sys.modules: 
-        print("trying to delete reactor")
-        del sys.modules["twisted.internet.reactor"]
+    cleaning()
     process.start()
 
 

@@ -40,10 +40,21 @@ def ReturnArticles():
     db.close()
     return bodies
 
+def DeleteArticles():
+    try:
+        db.connect()
+    except:
+        pass
+    query=ArticleModel.delete().where(ArticleModel.id>30)
+    query.execute()
+    db.close()
+
+
 def initialize_db():
     db.connect()
     db.create_tables([ArticleModel], safe=True)
     db.close()
 
 if __name__ == '__main__':
-    initialize_db()
+    #initialize_db()
+    DeleteArticles()

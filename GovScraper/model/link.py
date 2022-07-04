@@ -44,8 +44,8 @@ def ReturnLastLink():
 
 def DeleteLinks(count):
     db.connect()
-    qry=LinkModel.delete().limit(count)
-    qry.execute()
+    cursor = db.execute_sql('SELECT link, datetime FROM linkmodel ')
+    res=cursor.fetchone()
     db.close()
 
 def AddLinks(link):
@@ -60,5 +60,5 @@ def initialize_db():
     db.close()
 
 if __name__ == '__main__':
-    #initialize_db()
-    pass
+    initialize_db()
+    

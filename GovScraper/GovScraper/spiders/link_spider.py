@@ -21,7 +21,7 @@ class GovLinkSpider(scrapy.Spider):
         sel = Selector(response)
         errorMessage=sel.xpath("//div[@class='error404']")
         if not errorMessage:
-            links=sel.xpath("//div[@class='articles']/div[@class='item no-padding']/div[@class='col-lg-5']a/@href").extract()
+            links=sel.xpath("//div[@class='articles']/div[@class='item no-padding']/div[@class='col-lg-5']/a/@href").extract()
             for url in links:
                 item=LinkItem(
                     link=url, 
