@@ -57,4 +57,5 @@ def initialize_db():
     db.close()
 
 if __name__ == '__main__':
-    initialize_db()
+    #initialize_db()
+    pass
