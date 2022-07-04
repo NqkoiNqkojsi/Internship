@@ -24,7 +24,10 @@ class LinkModel(BaseModel):
     datetime = DateTimeField(default=datetime.now())
 
 def ReturnLinks():
-    db.connect()
+    try:
+        db.connect()
+    except:
+        pass
     cursor = db.execute_sql('SELECT link FROM linkmodel')
     links=[]
     for row in cursor.fetchall():
@@ -41,8 +44,8 @@ def ReturnLastLink():
 
 def DeleteLinks(count):
     db.connect()
-    qry=LinkModel.delete().limit(count)
-    qry.execute()
+    cursor = db.execute_sql('SELECT link, datetime FROM linkmodel ')
+    res=cursor.fetchone()
     db.close()
 
 def AddLinks(link):
@@ -58,3 +61,4 @@ def initialize_db():
 
 if __name__ == '__main__':
     initialize_db()
+    
