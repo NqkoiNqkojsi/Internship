@@ -8,6 +8,7 @@ from peewee import (
     CharField,
     FloatField,
     DateTimeField,
+    Table
 )
 
 db = SqliteDatabase("articles.db")
@@ -27,6 +28,17 @@ class ArticleModel(BaseModel):
     title = TextField()
     body = TextField()
 
+def ReturnArticles():
+    try:
+        db.connect()
+    except:
+        pass
+    cursor = db.execute_sql('SELECT body FROM articlemodel')
+    links=[]
+    for row in cursor.fetchall():
+        links.append(row[0])
+    db.close()
+    return links
 
 def initialize_db():
     db.connect()

@@ -30,11 +30,20 @@ class GovLinkPipeline:
         except:
             pass
 
-class GovUpdatePipeline:
+class GovUpdateLinkPipeline:
     def process_item(self, item, spider) -> LinkModel:
         # __import__("ipdb").set_trace()
         try:
             link = LinkModel.create(**item)
             return link
+        except:
+            pass
+
+class GovUpdateArticlePipeline:
+    def process_item(self, item, spider) -> ArticleModel:
+        #checks if the item is for this pipeline
+        try:
+            article = ArticleModel.create(**item)
+            return article
         except:
             pass

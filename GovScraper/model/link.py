@@ -24,7 +24,10 @@ class LinkModel(BaseModel):
     datetime = DateTimeField(default=datetime.now())
 
 def ReturnLinks():
-    db.connect()
+    try:
+        db.connect()
+    except:
+        pass
     cursor = db.execute_sql('SELECT link FROM linkmodel')
     links=[]
     for row in cursor.fetchall():

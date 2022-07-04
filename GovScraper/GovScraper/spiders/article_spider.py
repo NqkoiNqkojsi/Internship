@@ -23,6 +23,7 @@ class GovArticleSpider(scrapy.Spider):
         article=response.css("div.container")[1]# gets only the html of the article without navigation and such
         pageTitle=article.css("h1::text").getall()
         pageText =[]
+        #article.xpath("//div[@dir='auto']").extract()
         for p in article.css("p::text").getall():
             #should clean the body of useless blank spaces
             if not p == " ":

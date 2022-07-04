@@ -3,20 +3,23 @@ import scrapy
 import json
 from ..items import ArticleItem
 from datetime import datetime
-from model.link import ReturnLinks
 
 
-class GovArticleSpider(scrapy.Spider):
+class GovUpdateArticleSpider(scrapy.Spider):
     name = "govUpdateArticle"
+
+    start_url = ""
+    def __init__(self, url=''):
+        self.start_url = [url]
+    
     custom_settings = {
         'ITEM_PIPELINES': {
-            'GovScraper.pipelines.GovArticlePipeline': 200
+            'GovScraper.pipelines.GovUpdateArticlePipeline': 200
         }
     }
+
     def start_requests(self):
-        data = ReturnLinks()
-        for url in data:
-            yield scrapy.Request(url=url, callback=self.parse)
+        yield scrapy.Request(url=self.start_url, callback=self.parse)
                 
 
     def parse(self, response) -> ArticleItem:
