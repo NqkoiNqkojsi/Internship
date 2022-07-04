@@ -7,7 +7,7 @@ First start Virtual Environment and than install:</br>
 <pre>pip install peewee</pre>
 <pre>pip install peewee.jsonschema</pre>
 </br>
-To run the spider:</br>
+To run the spiders generating the databases:</br>
 For Windows:</br>
 <pre>python GovScraper/start.py</pre>
 For Linux:</br>
