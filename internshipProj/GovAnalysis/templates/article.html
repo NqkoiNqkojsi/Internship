@@ -17,7 +17,7 @@
                         <div class="header-container">
                                 <nav class="navbar navbar-expand-md bg-light">
                                         <div class="container-fluid">
-                                                <a class="navbar-brand" href="#">
+                                                <a class="navbar-brand" href="..\">
                                                         <img src="..\static\images\Gerald-G-Simple-Fruit-FF-Menu-1.svg" alt="">
                                                         Team Strawberry 
                                                         
@@ -37,19 +37,14 @@
                         </div>
                         <div class="content-container">
                             <div class="column" style="border-right:2px solid black; width:60%;">
-                                <h1 class="ArtTitle">{# titleCont #}
-                                    Lorem ipsum dolor sit amet
+                                <h1 class="ArtTitle">
+                                    {{ titleCont }}
                                 </h1>
-                                <a target="_blank" href="{# imgUrl #}https://gov.bg/images/upload/13/768/01ca2295.JPG">
-                                    <img class="img-thumbnail" src="{# imgUrl #}https://gov.bg/images/upload/13/768/01ca2295.JPG" alt="Thumbnail">
+                                <a target="_blank" href="https://gov.bg{{ imgUrl }}">
+                                    <img class="img-thumbnail" src="https://gov.bg{{ imgUrl }}" alt="Thumbnail">
                                 </a>
                                 <p class="artBody">
-                                    {# bodyCont #}
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lacus sed viverra tellus in hac. Gravida neque convallis a cras. Eget dolor morbi non arcu risus quis varius quam. Auctor eu augue ut lectus. Purus viverra accumsan in nisl nisi. Eget sit amet tellus cras adipiscing enim eu. Egestas maecenas pharetra convallis posuere morbi leo urna. Purus semper eget duis at tellus at urna condimentum. Semper risus in hendrerit gravida.
-
-Varius quam quisque id diam vel quam. Ultrices gravida dictum fusce ut placerat orci. Volutpat sed cras ornare arcu dui vivamus arcu felis bibendum. In aliquam sem fringilla ut. Dictum varius duis at consectetur lorem. Eget egestas purus viverra accumsan in nisl nisi. Urna duis convallis convallis tellus id. Hac habitasse platea dictumst quisque sagittis purus sit amet volutpat. Arcu cursus euismod quis viverra nibh cras. Dignissim suspendisse in est ante. Viverra adipiscing at in tellus integer feugiat scelerisque. Cursus risus at ultrices mi tempus. Turpis massa sed elementum tempus egestas sed sed risus. Viverra ipsum nunc aliquet bibendum enim. Maecenas accumsan lacus vel facilisis. Eget arcu dictum varius duis at consectetur lorem. Mauris cursus mattis molestie a iaculis at. Facilisis magna etiam tempor orci eu lobortis.
-
-Proin sed libero enim sed faucibus turpis in eu. Risus commodo viverra maecenas accumsan lacus vel. At volutpat diam ut venenatis. Penatibus et magnis dis parturient montes nascetur ridiculus mus. In fermentum et sollicitudin ac orci phasellus egestas tellus rutrum. Ac turpis egestas integer eget aliquet nibh. Nullam ac tortor vitae purus faucibus. Egestas quis ipsum suspendisse ultrices gravida dictum fusce ut. Feugiat in fermentum posuere urna nec tincidunt praesent semper feugiat. Ornare suspendisse sed nisi lacus sed viverra. Convallis aenean et tortor at risus viverra adipiscing at in.
+                                    {{ bodyCont }}
                                 </p>
                             </div>
                             <div class="column" style="width:32%;">
