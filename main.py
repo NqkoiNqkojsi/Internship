@@ -2,6 +2,7 @@ import datetime
 from playhouse.reflection import generate_models, print_model, Introspector
 import classla
 from collections import Counter
+from operator import countOf
 from peewee import *
 
 
@@ -36,28 +37,10 @@ def top3_ranking(l):
     return top3
 
 
-# Gets the meat of the articles from the db
-def getLinks():
-    try:
-        db.close()
-    except:
-        pass
-    db.connect()
-    cursor = db.execute_sql('SELECT body FROM articlemodel')
-    links = []
-    for row in cursor.fetchall():
-        links.append(row[0])
-    db.close()
-    return links
-
-
 # DB setup
 db = SqliteDatabase('articles.db', pragmas={'journal_mode': 'wal'})
 introspector = Introspector.from_database(db)
-allBodies = getLinks()
 NLPWords = []
-NLPTotalOccurs = 0
-NLPOccursinDocs = 0
 
 # Setting up the NLP
 
@@ -74,36 +57,66 @@ class BaseModel(Model):
 
 
 class Entities(BaseModel):
-    id_entity = AutoField()
-    entity_name = TextField(unique=True)
-    TotalOccurs = IntegerField()
-    TotalOccursinDoc = IntegerField()
-    OccursInDocs = IntegerField()
-
+    id = PrimaryKeyField()
+    entity_name = TextField(default='', unique=True)
+    TotalOccurs = IntegerField(default=0)
+    MaxOccursinDoc = IntegerField(default=0)
+    OccursInDocs = IntegerField(default=0)
 
 
 class EntitiesInArticle(BaseModel):
-    id_article = ForeignKeyField(Articles, to_field="id", related_name="ArticleIDs")
-    id_entity = ForeignKeyField(Entities, to_field="id_entity", related_name="EntityIDs")
-    occurences = IntegerField()
-
-# def updateEntities():
-#     for i in allBodies:
-#         conv = nlp(i)
-#         NLPWords.clear()
-#         for x in conv.entities:
-#             NLPWords.append(x.text)
-#             NLPWords.sort()
-#             NLPTotalOccurs += NLP
+    id_article = ForeignKeyField(Articles, to_field="id", default=0)
+    id = ForeignKeyField(Entities, to_field="id", default=0)
+    entity_name = TextField(default='')
+    occurences = IntegerField(default=0)
 
 
+def updateEntities():
+    for art in Articles.select():
+        conv = nlp(art.body)
+        NLPWords.clear()
+        for x in conv.entities:
+            NLPWords.append(x.text)
+            NLPWords.sort()
+
+        for x in NLPWords:
+
+            OccursInDoc = countOf(NLPWords, x)
+            existQuery = Entities.select().where(Entities.entity_name == x)
+            if existQuery.exists():
+                entity = Entities.get(Entities.entity_name == x)
+                entity.OccursInDocs += 1
+                entity.TotalOccurs += OccursInDoc
+                if entity.MaxOccursinDoc < OccursInDoc:
+                    entity.MaxOccursinDoc = OccursInDoc
+            else:
+                Entities.insert(entity_name=x, TotalOccurs=OccursInDoc, MaxOccursinDoc=OccursInDoc,
+                                OccursInDocs=1).execute()
+
+
+def updateInArts():
+    for article in Articles:
+        conv = nlp(article.body)
+        NLPWords.clear()
+        for x in conv.entities:
+            NLPWords.append(x.text)
+            NLPWords.sort()
+        for x in NLPWords:
+            OccursInDoc = countOf(NLPWords, x)
+            entity = Entities.get(Entities.entity_name == x)
+            name = entity.entity_name
+            EntitiesInArticle.insert(id_article=article, id=entity, entity_name=name,
+                                     occurences=OccursInDoc).execute()
 
 
 def startDB():
     db.connect()
     db.create_tables([Articles, Entities, EntitiesInArticle], safe=True)
+    updateEntities()
+    updateInArts()
     db.close()
 
 
 if __name__ == '__main__':
+    db.close()
     startDB()
