@@ -3,6 +3,7 @@ from django.template.loader import render_to_string
 from django.http import HttpResponse
 from GovAnalysis.models import Articles, EntitiesInArticle
 from django.template import Context, Template
+from django.core.paginator import Paginator
 import sqlite3
 
 
@@ -11,8 +12,7 @@ def index(request):
     return render(request, 'header.html')
 
 
-def article(request, id):
-    row = Articles.objects.all()
+def Article(request, id):
     conn = sqliteConnection = sqlite3.connect('../articles.db')
     try:
         cursor = conn.cursor()
@@ -24,5 +24,20 @@ def article(request, id):
     finally:
         conn.close()
     return render(request, 'article.html', context)
+
+
+def ListArticle(request, page):
+    conn = sqliteConnection = sqlite3.connect('../articles.db')
+    try:
+        cursor = conn.cursor()
+        cursor.execute("select id, title, date from articlemodel")
+        rows = cursor.fetchall()
+    finally:
+        conn.close()
+    
+    paginator = Paginator(rows, 20) # Show 25 contacts per page.
+    page_number = page
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'articlesList.html')
 
 

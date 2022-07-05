@@ -5,7 +5,7 @@ Project for AdataPro Internship
 First start Virtual Environment and than install:</br>
 <pre>pip install scrapy</pre>
 <pre>pip install peewee</pre>
-<pre>pip install peewee.jsonschema</pre>
+<pre>pip install scrapy_jsonschema</pre>
 </br>
 To run the spiders generating the databases:</br>
 <pre>python GovScraper/start.py</pre>

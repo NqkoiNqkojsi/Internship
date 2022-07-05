@@ -28,7 +28,7 @@ class GovArticleSpider(scrapy.Spider):
             # Remove blank spaces from List
             pageText = [i for i in pageText if i != " "]
             pageTitle=article.css("h1::text").getall()
-            pageImgs=article.css('img').xpath('@src').getall() #gets the adresses of the displayed images
+            pageImgs=article.css('img').xpath('@src').get() #gets the adresses of the displayed images
             pageVideo=article.css('iframe').xpath('@src').getall() #gets the link to an embedded video if it has otherwise returns null
             item=ArticleItem(
                 date="".join(pageText[0]),
@@ -36,7 +36,7 @@ class GovArticleSpider(scrapy.Spider):
                 images="".join(pageImgs),
                 videos="".join(pageVideo),
                 title="".join(pageTitle),
-                body="\n".join(pageText[1:])
+                body="".join(pageText[1:])
             )
             yield item
         
