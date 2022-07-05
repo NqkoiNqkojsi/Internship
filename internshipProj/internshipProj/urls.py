@@ -20,4 +20,5 @@ import GovAnalysis.views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', GovAnalysis.views.index),
+    path('articles/<str:id>', GovAnalysis.views.article),
 ]
