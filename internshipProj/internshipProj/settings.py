@@ -9,6 +9,12 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
+import mimetypes
+
+mimetypes.add_type("text/javascript", ".js", True)
+mimetypes.add_type("text/css", ".css", True)
+mimetypes.add_type("text/html", ".html", True)
+
 
 from pathlib import Path
 
@@ -37,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'GovAnalysis'
+    'GovAnalysis.apps.GovanalysisConfig'
 ]
 
 MIDDLEWARE = [
@@ -78,6 +84,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+    },
+    'articles':{
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': ".."/ BASE_DIR / 'articles.db',
     }
 }
 

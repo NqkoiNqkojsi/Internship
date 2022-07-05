@@ -4,8 +4,8 @@
         <title>Team Strawberry</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="static\css\bootstrap-5.2.0-beta1-dist\css\bootstrap.min.css">
-        <link rel="stylesheet" href="static\css\article.css" type="text/css">
+        <link rel="stylesheet" href="..\static\css\bootstrap-5.2.0-beta1-dist\css\bootstrap.min.css">
+        <link rel="stylesheet" href="..\static\css\article.css" type="text/css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
@@ -18,7 +18,7 @@
                                 <nav class="navbar navbar-expand-md bg-light">
                                         <div class="container-fluid">
                                                 <a class="navbar-brand" href="#">
-                                                        <img src="static\images\Gerald-G-Simple-Fruit-FF-Menu-1.svg" alt="">
+                                                        <img src="..\static\images\Gerald-G-Simple-Fruit-FF-Menu-1.svg" alt="">
                                                         Team Strawberry 
                                                         
                                                 </a>
@@ -36,31 +36,34 @@
                                 </nav>
                         </div>
                         <div class="content-container">
-                            <div class="column">
-                                <h1 class="ArtTitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</h1>
-                                <a target="_blank" href="">
-                                    <img class="img-thumbnail" src="" alt="Thumbnail">
+                            <div class="column" style="border-right:2px solid black; width:60%;">
+                                <h1 class="ArtTitle">{# titleCont #}
+                                    Lorem ipsum dolor sit amet
+                                </h1>
+                                <a target="_blank" href="{# imgUrl #}https://gov.bg/images/upload/13/768/01ca2295.JPG">
+                                    <img class="img-thumbnail" src="{# imgUrl #}https://gov.bg/images/upload/13/768/01ca2295.JPG" alt="Thumbnail">
                                 </a>
                                 <p class="artBody">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lacus sed viverra tellus in hac. Gravida neque convallis a cras. Eget dolor morbi non arcu risus quis varius quam. Auctor eu augue ut lectus. Purus viverra accumsan in nisl nisi. Eget sit amet tellus cras adipiscing enim eu. Egestas maecenas pharetra convallis posuere morbi leo urna. Purus semper eget duis at tellus at urna condimentum. Semper risus in hendrerit gravida.</br>
+                                    {# bodyCont #}
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lacus sed viverra tellus in hac. Gravida neque convallis a cras. Eget dolor morbi non arcu risus quis varius quam. Auctor eu augue ut lectus. Purus viverra accumsan in nisl nisi. Eget sit amet tellus cras adipiscing enim eu. Egestas maecenas pharetra convallis posuere morbi leo urna. Purus semper eget duis at tellus at urna condimentum. Semper risus in hendrerit gravida.
 
-                                    Varius quam quisque id diam vel quam. Ultrices gravida dictum fusce ut placerat orci. Volutpat sed cras ornare arcu dui vivamus arcu felis bibendum. In aliquam sem fringilla ut. Dictum varius duis at consectetur lorem. Eget egestas purus viverra accumsan in nisl nisi. Urna duis convallis convallis tellus id. Hac habitasse platea dictumst quisque sagittis purus sit amet volutpat. Arcu cursus euismod quis viverra nibh cras. Dignissim suspendisse in est ante. Viverra adipiscing at in tellus integer feugiat scelerisque. Cursus risus at ultrices mi tempus. Turpis massa sed elementum tempus egestas sed sed risus. Viverra ipsum nunc aliquet bibendum enim. Maecenas accumsan lacus vel facilisis. Eget arcu dictum varius duis at consectetur lorem. Mauris cursus mattis molestie a iaculis at. Facilisis magna etiam tempor orci eu lobortis.</br>
-                                    
-                                    Proin sed libero enim sed faucibus turpis in eu. Risus commodo viverra maecenas accumsan lacus vel. At volutpat diam ut venenatis. Penatibus et magnis dis parturient montes nascetur ridiculus mus. In fermentum et sollicitudin ac orci phasellus egestas tellus rutrum. Ac turpis egestas integer eget aliquet nibh. Nullam ac tortor vitae purus faucibus. Egestas quis ipsum suspendisse ultrices gravida dictum fusce ut. Feugiat in fermentum posuere urna nec tincidunt praesent semper feugiat. Ornare suspendisse sed nisi lacus sed viverra. Convallis aenean et tortor at risus viverra adipiscing at in. </br>
+Varius quam quisque id diam vel quam. Ultrices gravida dictum fusce ut placerat orci. Volutpat sed cras ornare arcu dui vivamus arcu felis bibendum. In aliquam sem fringilla ut. Dictum varius duis at consectetur lorem. Eget egestas purus viverra accumsan in nisl nisi. Urna duis convallis convallis tellus id. Hac habitasse platea dictumst quisque sagittis purus sit amet volutpat. Arcu cursus euismod quis viverra nibh cras. Dignissim suspendisse in est ante. Viverra adipiscing at in tellus integer feugiat scelerisque. Cursus risus at ultrices mi tempus. Turpis massa sed elementum tempus egestas sed sed risus. Viverra ipsum nunc aliquet bibendum enim. Maecenas accumsan lacus vel facilisis. Eget arcu dictum varius duis at consectetur lorem. Mauris cursus mattis molestie a iaculis at. Facilisis magna etiam tempor orci eu lobortis.
+
+Proin sed libero enim sed faucibus turpis in eu. Risus commodo viverra maecenas accumsan lacus vel. At volutpat diam ut venenatis. Penatibus et magnis dis parturient montes nascetur ridiculus mus. In fermentum et sollicitudin ac orci phasellus egestas tellus rutrum. Ac turpis egestas integer eget aliquet nibh. Nullam ac tortor vitae purus faucibus. Egestas quis ipsum suspendisse ultrices gravida dictum fusce ut. Feugiat in fermentum posuere urna nec tincidunt praesent semper feugiat. Ornare suspendisse sed nisi lacus sed viverra. Convallis aenean et tortor at risus viverra adipiscing at in.
                                 </p>
                             </div>
-                            <div class="column">
+                            <div class="column" style="width:32%;">
                                 <div class="dropdown">
-                                    <h1 class="ArtTitle">Articles:</h1>
+                                    <h1 class="ArtTitle">Entities:</h1>
                                     <div id="Top3" class="dropdown-content">
-                                      <a href=""><span class="word-holder">Lorem ipsum</span>:5 mentions</a>
-                                      <a href=""><span class="word-holder">dolor sit amet</span>:3 mentions</a>
-                                      <a href=""><span class="word-holder">consectetur adipiscing</span>:2 mentions</a>
+                                      <a href=""><span class="word-holder">{# wordTop[0] #}Lorem ipsum dolor</span><span class="word-holder"> : {# countTop[0] #}5 mentions</span></a></br>
+                                      <a href=""><span class="word-holder">{# wordTop[1] #}Lorem ipsum dolor</span><span class="word-holder"> : {# countTop[1] #}3 mentions</span></a></br>
+                                      <a href=""><span class="word-holder">{# wordTop[2] #}Lorem ipsum dolor</span><span class="word-holder"> : {# countTop[2] #}2 mentions</span></a></br>
                                     </div>
                                     <div id="NotTop" class="dropdown-content-add">
-                                        <a href=""><span class="word-holder">Lorem ipsum</span>:2 mentions</a>
-                                        <a href=""><span class="word-holder">dolor sit amet</span>:1 mentions</a>
-                                        <a href=""><span class="word-holder">consectetur adipiscing</span>:1 mentions</a>
+                                        <a href=""><span class="word-holder">Lorem ipsum</span><span class="word-holder"> : 2 mentions</span></a></br>
+                                        <a href=""><span class="word-holder">dolor sit amet</span><span class="word-holder"> : 1 mentions</span></a></br>
+                                        <a href=""><span class="word-holder">consectetur adipiscing</span><span class="word-holder"> : 1 mentions</span></a></br>
                                     </div>
                                     <button onclick="ActivateDropdown()" class="dropbtn">Show More</button>
                                 </div>

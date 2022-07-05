@@ -1,8 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class Articles(models.model):
-    id = models.AutoField(unique=True)
+class Articles(models.Model):
     date = models.DateTimeField()
     url = models.TextField(unique=True)
     images = models.TextField()
@@ -10,14 +9,13 @@ class Articles(models.model):
     title = models.TextField()
     body = models.TextField()
 
-class Entities(models.model):
-    id_entity = models.AutoField()
+class Entities(models.Model):
     entity_name = models.TextField(unique=True)
     TotalOccurs = models.IntegerField()
     TotalOccursinDoc = models.IntegerField()
     OccursInDocs = models.IntegerField()
 
-class EntitiesInArticle(models.model):
-    id_article = models.ForeignKeyField(Articles, to_field="id", related_name="ArticleIDs")
-    id_entity = models.ForeignKeyField(Entities, to_field="id_entity", related_name="EntityIDs")
+class EntitiesInArticle(models.Model):
+    id_article = models.ForeignKey(Articles, on_delete=models.CASCADE)
+    id_entity = models.ForeignKey(Entities, on_delete=models.CASCADE)
     occurences = models.IntegerField()
