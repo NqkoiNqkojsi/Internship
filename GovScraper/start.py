@@ -31,9 +31,6 @@ def start_program():
     process.crawl(GovArticleSpider)
     cleaning()
     process.start()
-    process.crawl(GovUpdateLinkSpider)
-    cleaning()
-    process.start()
 
 
 if __name__=="__main__":

@@ -7,8 +7,7 @@ from peewee import (
     TextField,
     CharField,
     FloatField,
-    DateTimeField,
-    Table
+    DateTimeField
 )
 
 db = SqliteDatabase("articles.db")
