@@ -1,9 +1,9 @@
-import datetime
-from playhouse.reflection import generate_models, print_model, Introspector
-import classla
 from collections import Counter
 from operator import countOf
+import classla
+import re
 from peewee import *
+from playhouse.reflection import Introspector
 
 
 # Most frequent word per list
@@ -25,6 +25,10 @@ def RankingPerDoc(list):
     counts = dict(Counter(list))
     for i in counts:
         print(i, list[i])
+
+
+def dupeClear(list1):
+    return list(dict.fromkeys(list1))
 
 
 # Top 3 most seen words per list
@@ -58,7 +62,7 @@ class BaseModel(Model):
 
 class Entities(BaseModel):
     id = PrimaryKeyField()
-    entity_name = TextField(default='', unique=True)
+    entity_name = TextField(default='')
     TotalOccurs = IntegerField(default=0)
     MaxOccursinDoc = IntegerField(default=0)
     OccursInDocs = IntegerField(default=0)
@@ -71,59 +75,69 @@ class EntitiesInArticle(BaseModel):
     occurences = IntegerField(default=0)
 
 
-def updateEntities():
-    for art in Articles.select():
+Entities.insert(entity_name='PHD', TotalOccurs=0, MaxOccursinDoc=0, OccursInDocs=0).execute()
+
+
+def updateInArts():
+    for art in Articles:
         conv = art.body
         conv.strip()
         conv = nlp(conv)
         NLPWords.clear()
         for x in conv.entities:
             NLPWords.append(x.text)
-            NLPWords.sort()
-
+        NLPWords.sort()
+        OccursInDoc = 0
         for x in NLPWords:
-
             OccursInDoc = countOf(NLPWords, x)
-            existQuery = Entities.select().where(Entities.entity_name == x)
-            if existQuery.exists():
-                entity = Entities.get(Entities.entity_name == x)
-                entity.OccursInDocs += 1
-                entity.TotalOccurs += OccursInDoc
-                if entity.MaxOccursinDoc < OccursInDoc:
-                    entity.MaxOccursinDoc = OccursInDoc
-            else:
-                Entities.insert(entity_name=x, TotalOccurs=OccursInDoc, MaxOccursinDoc=OccursInDoc,
-                                OccursInDocs=1).execute()
+        NLPWords2 = dupeClear(NLPWords)
+        for x in NLPWords2:
+            EntitiesInArticle.insert(id_article=art, id=Entities.select().where(Entities.entity_name == 'Placeholder'),
+                                     entity_name=x,
+                                     occurences=OccursInDoc).execute()
 
 
-def updateInArts():
-    for article in Articles:
-        conv = article.body
+def updateEntities():
+    for art in Articles.select():
+        conv = art.body
         conv.strip()
         conv = nlp(conv)
-        NLPWords.clear()
+        Words = []
         for x in conv.entities:
-            NLPWords.append(x.text)
-            NLPWords.sort()
-        for x in NLPWords:
-            OccursInDoc = countOf(NLPWords, x)
+            Words.append(x.text)
+        Words.sort()
+        Words = dupeClear(Words)
+        max = 0
+        for i in EntitiesInArticle.occurences:
+            if max == 0 or i > max:
+                max = i
+        TotalOccurs = 0
+        OccursInDocs = 0
+        for x in Words:
+            for i in EntitiesInArticle.select().where(EntitiesInArticle.entity_name == x):
+                TotalOccurs += i.occurences
+            for i in EntitiesInArticle.select().where(EntitiesInArticle.entity_name == x):
+                OccursInDocs += 1
+            Entities.insert(entity_name=x, TotalOccurs=TotalOccurs, MaxOccursinDoc=max,
+                            OccursInDocs=OccursInDocs).execute()
+        for i in EntitiesInArticle.select().where(EntitiesInArticle.entity_name == x):
             entity = Entities.get(Entities.entity_name == x)
-            name = entity.entity_name
-            EntitiesInArticle.insert(id_article=article, id=entity, entity_name=name,
-                                     occurences=OccursInDoc).execute()
+            i.update(id=entity)
 
 
 def startDB():
     db.connect()
+    Entities.delete()
+    EntitiesInArticle.delete()
     db.create_tables([Articles, Entities, EntitiesInArticle], safe=True)
-    updateEntities()
     updateInArts()
+    updateEntities()
 
 
 if __name__ == '__main__':
     db.close()
     startDB()
-    cursor = db.execute_sql('select * from entities;')
+    cursor = db.execute_sql('select * from entitiesinarticle;')
     for row in cursor.fetchall():
         print(row)
     db.close()
