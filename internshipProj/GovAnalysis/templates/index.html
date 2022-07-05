@@ -1,14 +1,11 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <title>Team Strawberry</title>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">        
-        <link rel="stylesheet" href="{% static 'css\bootstrap-5.2.0-beta1-dist\css\bootstrap.min.css' %}">
-        <link rel="stylesheet" href="{% static 'css\main.css' %}" type="text/css">
-        <link rel="stylesheet" href="{% static 'css\articlesListStyles.css' %}" type="text/css"> 
-        
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="static\css\bootstrap-5.2.0-beta1-dist\css\bootstrap.min.css">
+        <link rel="stylesheet" href="static\css\main.css" type="text/css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
@@ -21,8 +18,7 @@
                 <nav class="navbar navbar-expand-md bg-light">
                     <div class="container-fluid">
                         <a class="navbar-brand" href="/">
-                            <!-- <img src="static\images\Gerald-G-Simple-Fruit-FF-Menu-1.svg" alt=""> -->
-                            <img src="http://127.0.0.1:8000/static/images/Gerald-G-Simple-Fruit-FF-Menu-1.svg" alt="">
+                            <img src="static\images\Gerald-G-Simple-Fruit-FF-Menu-1.svg" alt="">
                             Team Strawberry 
                                 
                         </a>
@@ -40,7 +36,13 @@
                 </nav>
             </div>
             <div class="content-container">
-                
+                <h1 class="top-header">Welcome to the <span class="snt-br">Team Strawberry Project</span></h1>
+                    <p class="firstP">Our project provides entity analysis on the news, posted in <a class="link-norm link-gov" href="https://gov.bg/" target="_blank">gov.bg</a>.</p>
+                    <p class="secondP">This includes:</p>
+                    <p class="thirdP"> - Article by article reviews, showing which entities have been mentioned and how many times in a given document.</p>
+                    <p class="fourthP"> - Full overview of the entities, that have been mentioned across all articles, coupled with additional data.</p>
+                    <a class="btn btn-outline-danger button-upper" href="#" role="button">Go to articles</a>
+                    <a class="btn btn-outline-danger button-lower" href="#" role="button">Go to overview</a>
             </div>
             <div class="footer-container">
                 <div class="footer-left">
