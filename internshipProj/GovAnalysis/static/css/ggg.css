@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Finlandica&family=Lobster&display=swap');
+html {
+    --watermelon: #FF3B3F;
+    --carbon: #A9A9A9;
+    --sky: #CAEBF2;
+    --neutral:#EFEFEF;
+    
+}
+
+body {
+    display: grid;
+    grid-template-areas: "aside-left page-container aside-right";
+    grid-template-columns: 1fr minmax(300px, 1024px) 1fr;
+    z-index: -1;
+    background-image: url("..\\images\\output-onlinepngtools10.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
+    background-position: center;
+    font-family: 'Finlandica', sans-serif;
+}
+
+.page-aside {
+    display: block;
+}
+
+.page-aside.left {
+    grid-area: aside-left;
+}
+
+.page-aside.right {
+    grid-area: aside-right;
+}
+
+.page-container{
+    display: block;
+    grid-area: page-container;
+    opacity: unset;
+}
+
+.navbar-brand img {
+    width: 30px;
+    height: 30px;
+}
+
+nav {
+    border-radius: 10px;
+    border-bottom: 1px solid grey;
+    box-shadow: 0 1px 10px;
+}
+
+@keyframes underlineHoverAnimation {
+    from {border-bottom: 3px dashed #fff;}
+    to {border-bottom: 3px dashed var(--watermelon);}
+}
+
+@keyframes textHoverAnimation {
+    from {color: #000;}
+    to {color: var(--watermelon);}
+}
+
+.nav-link.link:hover {
+    cursor: pointer;
+    padding-bottom: 5px;
+    animation-name: underlineHoverAnimation;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+.navbar-brand:hover {
+    animation-name: textHoverAnimation;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+.content-container {
+    font-size: 120%;
+    font-weight: bolder;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: 2em repeat(3, auto) repeat(2, 1fr) 2em;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+.top-header{
+    grid-area: 2 / 2 / 3 / 5;
+}
+
+.top-header span.snt-br {
+    content: "\a";
+    white-space: pre;
+    color:var(--watermelon);
+}
+
+.firstP {
+    grid-area: 3 / 3 / 4 / 5;
+    font-size:120%;
+}
+
+.secondP {
+    grid-area: 4 / 4 / 5 / 5;
+    font-size:130%;
+}
+
+.thirdP {
+    grid-area: 5 / 4 / 6 / 6;
+}
+
+.fourthP {
+    grid-area: 6 / 4 / 7 / 6;
+}
+
+.link-norm {
+    color: inherit;
+    text-decoration: none;
+    text-decoration-style: dashed;
+    width:3em;
+    border-bottom: 2px dashed var(--watermelon);
+}
+
+.link-norm:hover {
+    animation-name: textHoverAnimation;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+.button-upper {
+    grid-area: 5 / 6 / 6 / 7;
+    justify-self: center;
+    align-self: top;
+    height: fit-content;
+}
+
+.button-lower {
+    grid-area: 6 / 6 / 7 / 7;
+    justify-self: center;
+    align-self: top;
+    height: fit-content;
+}
