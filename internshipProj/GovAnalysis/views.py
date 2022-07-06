@@ -10,8 +10,13 @@ import sqlite3
 
 # Create your views here.
 def index(request):
-    return render(request, 'header.html')
+    return render(request, 'index.html')
 
+def articlesList(request):
+    return render(request, 'articlesList.html')
+
+def entitiesOverv(request):
+    return render(request, 'entitiesOverv.html')
 
 def Article(request, id):
     conn = sqliteConnection = sqlite3.connect('../articles.db')
