@@ -20,17 +20,21 @@ def Article(request, id):
         cursor.execute("select * from articlemodel where id="+str(id))
         rows = cursor.fetchall()
         for row in rows:
-            context=dict({"imgUrl":row[3], "titleCont":row[5], "bodyCont":row[6]})
+            context=dict({"imgUrl":row[3], "titleCont":row[5], "bodyCont":row[6], "TopEnt":None})
     finally:
         pass
+    TopEnt=[]
+    BotEnt=[]
     try:
         cursor = conn.cursor()
         cursor.execute("select * from entitiesinarticle where id_article="+str(id))
         rowsEnt = cursor.fetchall()
         for rowent in rowsEnt:
-            print(rowent)
+            TopEnt.append([str(rowent[2]), rowent[3], rowent[4]])
+        context["TopEnt"]=TopEnt
     finally:
         conn.close()
+    print(context)
     return render(request, 'article.html', context)
 
 
@@ -57,6 +61,18 @@ def ListArticle(request, page):
     return render(request, 'articlesList.html', context)
 
 
-def SortArticles(rows):
-    #datetime.strptime('Jun 1 2005  1:33PM', '%b %d %Y %I:%M%p')
-    pass
+def EntityOverview(request, id):
+    conn = sqliteConnection = sqlite3.connect('../articles.db')
+    TopEnt=[]
+    BotEnt=[]
+    try:
+        cursor = conn.cursor()
+        cursor.execute("select * from entities where id="+str(id))
+        rows = cursor.fetchall()
+        for row in rows:
+            context=dict({"id":row[0], "word":row[1], "TotOcc":row[2], "MaxOcc":row[3]})
+    finally:
+        conn.close()
+    
+    return render(request, 'entitiesOverv.html', context)
+

@@ -116,6 +116,7 @@ def updateInArts():
                 EntitiesInArticle.create(id_article=art, id_entity=query.id,
                                         entity_name=x,
                                         occurences=OccursInDoc)
+                updateEntities(x, OccursInDoc)
             else:
                 createEntity(x, OccursInDoc)
 
@@ -126,7 +127,9 @@ def createEntity(x, occ):
 
 def updateEntities(x, occ):
     print("Updating:"+str(x))
-    Entities.update(TotalOccurs=occ+Entities.TotalOccurs).where(Entities.entity_name==x)
+    tot=Entities.get(Entities.entity_name==x).TotalOccurs
+    occ=occ+tot
+    Entities.update(TotalOccurs=occ).where(Entities.entity_name==x)
     most=Entities.get(Entities.entity_name==x).MaxOccursinDoc
     if occ>most:
         Entities.update(MaxOccursinDoc=occ).where(Entities.entity_name==x)
