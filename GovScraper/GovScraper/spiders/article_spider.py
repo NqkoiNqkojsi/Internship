@@ -30,6 +30,8 @@ class GovArticleSpider(scrapy.Spider):
             pageTitle=article.css("h1::text").getall()
             pageImgs=article.css('img').xpath('@src').get() #gets the adresses of the displayed images
             pageVideo=article.css('iframe').xpath('@src').getall() #gets the link to an embedded video if it has otherwise returns null
+            if len(pageText[0])>13:
+                pageText[0]="1.1.2017"
             item=ArticleItem(
                 date="".join(pageText[0]),
                 url=response.url,

@@ -5,13 +5,19 @@ from GovAnalysis.models import Articles, EntitiesInArticle
 from django.template import Context, Template
 from django.core.paginator import Paginator
 from datetime import datetime
+import time
 import sqlite3
 
 
 # Create your views here.
 def index(request):
-    return render(request, 'header.html')
+    return render(request, 'index.html')
 
+def articlesList(request):
+    return render(request, 'articlesList.html')
+
+def entitiesOverv(request):
+    return render(request, 'entitiesOverv.html')
 
 def Article(request, id):
     conn = sqliteConnection = sqlite3.connect('../articles.db')
@@ -39,7 +45,6 @@ def Article(request, id):
 
 
 def ListArticle(request, page):
-    numb=[page, page+1, page+2, page+3, page+4]
     conn = sqliteConnection = sqlite3.connect('../articles.db')
     try:
         cursor = conn.cursor()
@@ -49,8 +54,7 @@ def ListArticle(request, page):
         conn.close()
     
     art_lenght=len(rows)
-    # TO DO Sort
-    paginator = Paginator(rows, 10) # Show 25 contacts per page.
+    paginator = Paginator(SortArticles(rows), 10) # Show 25 contacts per page.
     page_number = page
     page_obj = paginator.get_page(page_number)
     numb4=page+4
