@@ -230,5 +230,21 @@ nav {
     align-content: center;
     color: black;
   }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid #ddd;
+  }
+  
+  th, td {
+    text-align: left;
+    padding: 16px;
+  }
 
+  .row1{
+    background-color: #A9A9A9;
+  }
+  .row2{
+    background-color: #d4d4d4;
+  }
   

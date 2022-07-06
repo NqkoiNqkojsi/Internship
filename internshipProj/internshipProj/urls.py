@@ -24,4 +24,5 @@ urlpatterns = [
     path('entitiesOverv/', GovAnalysis.views.entitiesOverv),
     path('article/<str:id>', GovAnalysis.views.Article),
     path('list-of-articles/<int:page>', GovAnalysis.views.ListArticle),
+    path('entity-overview/<str:id>', GovAnalysis.views.EntityOverview),
 ]

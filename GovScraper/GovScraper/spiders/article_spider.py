@@ -38,7 +38,7 @@ class GovArticleSpider(scrapy.Spider):
                 images="".join(pageImgs),
                 videos="".join(pageVideo),
                 title="".join(pageTitle),
-                body="".join(pageText[1:])
+                body=" ".join(pageText[1:])
             )
             yield item
         
