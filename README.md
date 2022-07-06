@@ -1,6 +1,7 @@
 # Internship
+<h3>Dependecies<\h3>
 Project for AdataPro Internship</br>
-First start Virtual Environment and than install:</br>
+First start Virtual Environment and then install:</br>
 <pre>pip install scrapy</pre>
 <pre>pip install peewee</pre>
 <pre>pip install scrapy_jsonschema</pre>
@@ -13,9 +14,6 @@ To run the spiders generating the databases:</br>
 This code will run 3 spiders:</br>
 First to generate the urls for all the articles in a links.db</br>
 Second to generate articles.db with all the necessary information from the articles</br>
-</br>
-<h3>To start The Django site</h3>
-<pre>python NLP/main.py</pre>
 </br>
 <h3>To start The Django site</h3>
 <pre>cd internshipProj</pre>
