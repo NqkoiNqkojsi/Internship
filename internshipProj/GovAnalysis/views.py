@@ -5,6 +5,7 @@ from GovAnalysis.models import Articles, EntitiesInArticle
 from django.template import Context, Template
 from django.core.paginator import Paginator
 from datetime import datetime
+import time
 import sqlite3
 
 
@@ -33,7 +34,6 @@ def Article(request, id):
 
 
 def ListArticle(request, page):
-    numb=[page, page+1, page+2, page+3, page+4]
     conn = sqliteConnection = sqlite3.connect('../articles.db')
     try:
         cursor = conn.cursor()
@@ -43,8 +43,7 @@ def ListArticle(request, page):
         conn.close()
     
     art_lenght=len(rows)
-    # TO DO Sort
-    paginator = Paginator(rows, 10) # Show 25 contacts per page.
+    paginator = Paginator(SortArticles(rows), 10) # Show 25 contacts per page.
     page_number = page
     page_obj = paginator.get_page(page_number)
     numb4=page+4
@@ -56,5 +55,5 @@ def ListArticle(request, page):
 
 
 def SortArticles(rows):
-    #datetime.strptime('Jun 1 2005  1:33PM', '%b %d %Y %I:%M%p')
-    pass
+    return rows.sort(key=lambda x: time.mktime(time.strptime(x[2],"%d.%m.%Y")))
+
