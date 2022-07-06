@@ -29,5 +29,5 @@ You can install the packages you need with debian commands through the shell.
 <h3>To start The Django site</h3>
 <pre>cd internshipProj</pre>
 <pre>python manage.py runserver</pre>
-Lastly, go to http://127.0.0.1:8000/
+Lastly, go to http://127.0.0.1:8000/.
 
