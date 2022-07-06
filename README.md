@@ -1,5 +1,5 @@
 # Internship
-<h3>Dependecies<\h3>
+<h3>Dependecies</h3>
 Project for AdataPro Internship</br>
 First start Virtual Environment and then install:</br>
 <pre>pip install scrapy</pre>
