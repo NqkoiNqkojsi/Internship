@@ -11,8 +11,13 @@ import sqlite3
 
 # Create your views here.
 def index(request):
-    return render(request, 'header.html')
+    return render(request, 'index.html')
 
+def articlesList(request):
+    return render(request, 'articlesList.html')
+
+def entitiesOverv(request):
+    return render(request, 'entitiesOverv.html')
 
 def Article(request, id):
     conn = sqliteConnection = sqlite3.connect('../articles.db')
@@ -51,3 +56,4 @@ def ListArticle(request, page):
 
 def SortArticles(rows):
     return rows.sort(key=lambda x: time.mktime(time.strptime(x[2],"%d.%m.%Y")))
+

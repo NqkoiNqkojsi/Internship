@@ -13,5 +13,8 @@ To run the spiders generating the databases:</br>
 This code will run 3 spiders:</br>
 First to generate the urls for all the articles in a links.db</br>
 Second to generate articles.db with all the necessary information from the articles</br>
-Third to keep the two databases updated constantly</br>
+<h3>To start The Django site</h3>
+<pre>cd internshipProj</pre>
+<pre>python manage.py runserver</pre>
+go to http://127.0.0.1:8000/
 
