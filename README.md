@@ -13,6 +13,7 @@ To run the spiders generating the databases:</br>
 This code will run 3 spiders:</br>
 First to generate the urls for all the articles in a links.db</br>
 Second to generate articles.db with all the necessary information from the articles</br>
+</br>
 <h3>To start The Django site</h3>
 <pre>python NLP/main.py</pre>
 </br>
