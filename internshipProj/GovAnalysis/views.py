@@ -20,8 +20,15 @@ def Article(request, id):
         cursor.execute("select * from articlemodel where id="+str(id))
         rows = cursor.fetchall()
         for row in rows:
-            print(row)
             context=dict({"imgUrl":row[3], "titleCont":row[5], "bodyCont":row[6]})
+    finally:
+        pass
+    try:
+        cursor = conn.cursor()
+        cursor.execute("select * from entitiesinarticle where id_article="+str(id))
+        rowsEnt = cursor.fetchall()
+        for rowent in rowsEnt:
+            print(rowent)
     finally:
         conn.close()
     return render(request, 'article.html', context)
