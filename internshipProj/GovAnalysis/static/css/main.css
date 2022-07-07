@@ -95,7 +95,7 @@ nav {
 .content-container {
     font-size: 120%;
     font-weight: bolder;
-    display: grid;
+    display: block;
     grid-template-columns: repeat(8, 1fr);
     grid-template-rows: 1em repeat(3, auto) repeat(2, 1fr) 1em;
     grid-column-gap: 0px;

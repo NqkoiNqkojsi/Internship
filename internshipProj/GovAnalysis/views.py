@@ -54,7 +54,7 @@ def ListArticle(request, page):
         conn.close()
     
     art_lenght=len(rows)
-    paginator = Paginator(SortArticles(rows), 10) # Show 25 contacts per page.
+    paginator = Paginator(rows, 10) # Show 25 contacts per page.
     page_number = page
     page_obj = paginator.get_page(page_number)
     numb4=page+4
