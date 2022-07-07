@@ -8,12 +8,18 @@ First start Virtual Environment and then install:</br>
 <pre>pip install django</pre>
 <pre>pip install classla</pre>
 </br>
-<h3>To start Crawler</h3>
+
+<h3>To start The Crawler</h3>
 To run the spiders generating the databases:</br>
 <pre>python GovScraper/start.py</pre>
-This code will run 3 spiders:</br>
+This code will run 2 spiders:</br>
 First to generate the urls for all the articles in a links.db</br>
 Second to generate articles.db with all the necessary information from the articles</br>
+
+<h3>To start The NLP Process</h3>
+<pre>python NLP/main.py</pre>
+This code will get all of the name enteties in every article and put them in articles.db</br>
+
 <h3>Set up the deployment environment</h3>
 <h5>AWS</h5>
 First, go to https://aws.amazon.com/ and create a free-tier account.
@@ -26,6 +32,7 @@ From here on we have to configure the PuTTY with the .pem key we get from AWS.
 <h5>Installing packages</h5>
 You can install the packages you need with debian commands through the shell.
 </br>
+
 <h3>To start The Django site</h3>
 <pre>cd internshipProj</pre>
 <pre>python manage.py runserver</pre>
