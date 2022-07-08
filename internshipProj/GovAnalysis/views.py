@@ -78,10 +78,24 @@ def EntityOverview(request, id):
         cursor.execute("select * from entities where id="+str(id))
         rows = cursor.fetchall()
         for row in rows:
-            context=dict({"id":row[0], "word":row[1], "TotOcc":row[2], "MaxOcc":row[3]})
+            context=dict({"word":row[1], "len":row[0], "TotOcc":row[2], "MaxOcc":row[3]})
+    finally:
+        pass
+    EntArt=[]
+    try:
+        cursor = conn.cursor()
+        cursor.execute("select id_article, occurences from entitiesinarticle where id_entity="+str(row[0]))
+        rowsEnt = cursor.fetchall()
+        for rowent in rowsEnt:
+            cursor.execute("select title from articlemodel where id="+str(rowent[0]))
+            title = cursor.fetchall()
+            EntArt.append([str(rowent[0]), title[0][0], str(rowent[1])])
+        context["len"]=len(rowsEnt)
+        print(EntArt)
+        context["EntArt"]=EntArt
     finally:
         conn.close()
-    
+
     return render(request, 'entitiesOverv.html', context)
 
 
@@ -89,3 +103,7 @@ def EntityOverview(request, id):
 def SortAricles(listArt):
     listArt.sort(key=lambda x: time.mktime(time.strptime(x[2],"%d.%m.%Y")))
     return list(reversed(listArt))
+
+def SortEntitiesInArticle(listEnt):
+    listEnt.sort(key=lambda x: x[1])
+    return listEnt
