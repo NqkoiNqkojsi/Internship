@@ -136,12 +136,8 @@ def createEntity(x, occ):
 
 def updateEntities(ent, x, occ):
     print("Updating:"+str(x))
-    #tot=Entities.get(Entities.entity_name==x).TotalOccurs
     ent.TotalOccurs=occ+ent.TotalOccurs
-    #Entities.update(TotalOccurs=occ).where(Entities.entity_name==x)
-    #most=Entities.get(Entities.entity_name==x).MaxOccursinDoc
     if occ>ent.MaxOccursinDoc:
-        #Entities.update(MaxOccursinDoc=occ).where(Entities.entity_name==x)
         ent.MaxOccursinDoc=occ
     print(ent.save())
 
