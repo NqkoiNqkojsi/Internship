@@ -52,7 +52,7 @@ def ListArticle(request, page):
         rows = cursor.fetchall()
     finally:
         conn.close()
-    
+    rows=SortAricles(rows)
     art_lenght=len(rows)
     paginator = Paginator(rows, 10) # Show 25 contacts per page.
     page_number = page
@@ -84,3 +84,8 @@ def EntityOverview(request, id):
     
     return render(request, 'entitiesOverv.html', context)
 
+
+
+def SortAricles(listArt):
+    listArt.sort(key=lambda x: time.mktime(time.strptime(x[2],"%d.%m.%Y")))
+    return list(reversed(listArt))
