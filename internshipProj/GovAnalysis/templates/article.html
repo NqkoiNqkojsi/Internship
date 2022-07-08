@@ -120,11 +120,21 @@
                         function highlight(words) {
                                 var inputText = document.getElementById("artBody");
                                 var innerHTML = inputText.innerHTML;
+                                let TextLen=innerHTML.length
+                                var lastOcc=0;
                                 words.forEach(text => {
-                                        var index = innerHTML.indexOf(text);
-                                        if (index >= 0) { 
-                                                innerHTML = innerHTML.substring(0,index) + "<span class='highlight'>" + innerHTML.substring(index,index+text.length) + "</span>" + innerHTML.substring(index + text.length);
-                                                inputText.innerHTML = innerHTML;
+                                        lastOcc=0;
+                                        while(lastOcc>= 0 && TextLen>lastOcc){
+                                                let index = innerHTML.indexOf(text, lastOcc+1);
+                                                if (index >= 0) { 
+                                                        innerHTML = innerHTML.substring(0,index) + "<span class='highlight'>" + innerHTML.substring(index,index+text.length) + "</span>" + innerHTML.substring(index + text.length);
+                                                        inputText.innerHTML = innerHTML;
+                                                }else{
+                                                        break;
+                                                }
+                                                lastOcc=index + text.length;
+                                                console.log(lastOcc)
+                                                console.log(innerHTML.length)
                                         }
                                 });
                                 

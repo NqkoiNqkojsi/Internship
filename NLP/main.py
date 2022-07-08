@@ -103,26 +103,29 @@ def updateInArts():
         conv = art.body
         conv.strip()
         conv = nlp(conv)
-        NLPWords.clear()
+        NLPWords=[]
         for x in conv.entities:
             NLPWords.append(x.text)
         NLPWords.sort()
         OccursInDoc = 0
-        for x in NLPWords:
-            OccursInDoc = countOf(NLPWords, x)
-        NLPWords2 = dupeClear(NLPWords)
-        for word in NLPWords2:
-            ent = Entities.get_or_none(Entities.entity_name == word)
-            if ent is not None:
-                EntitiesInArticle.create(id_article=art, id_entity=ent.id,
-                                        entity_name=word,
-                                        occurences=OccursInDoc)
-                updateEntities(ent, word, OccursInDoc)
-            else:
-                id_ent=createEntity(word, OccursInDoc)
-                EntitiesInArticle.create(id_article=art, id_entity=id_ent,
-                                        entity_name=word,
-                                        occurences=OccursInDoc)
+        oldWords=[]
+        for word in NLPWords:
+            if not word in oldWords:
+                OccursInDoc = countOf(NLPWords, word)
+                ent = Entities.get_or_none(Entities.entity_name == word)
+                if ent is not None:
+                    EntitiesInArticle.create(id_article=art, id_entity=ent.id,
+                                            entity_name=word,
+                                            occurences=OccursInDoc)
+                    updateEntities(ent, word, OccursInDoc)
+                else:
+                    id_ent=createEntity(word, OccursInDoc)
+                    EntitiesInArticle.create(id_article=art, id_entity=id_ent,
+                                            entity_name=word,
+                                            occurences=OccursInDoc)
+                oldWords.append(word)
+            
+            
 
 
 def createEntity(x, occ):
