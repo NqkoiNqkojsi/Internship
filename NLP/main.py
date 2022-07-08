@@ -54,7 +54,8 @@ def top3_ranking(l):
 
 
 # DB setup
-db = SqliteDatabase('articles.db', pragmas={'journal_mode': 'wal'})
+#db = SqliteDatabase('articles.db', pragmas={'journal_mode': 'wal'})
+db = SqliteDatabase('articles.db')
 introspector = Introspector.from_database(db)
 NLPWords = []
 
@@ -110,29 +111,36 @@ def updateInArts():
         for x in NLPWords:
             OccursInDoc = countOf(NLPWords, x)
         NLPWords2 = dupeClear(NLPWords)
-        for x in NLPWords2:
-            query = Entities.get_or_none(Entities.entity_name == x)
-            if query is not None:
-                EntitiesInArticle.create(id_article=art, id_entity=query.id,
-                                        entity_name=x,
+        for word in NLPWords2:
+            ent = Entities.get_or_none(Entities.entity_name == word)
+            if ent is not None:
+                EntitiesInArticle.create(id_article=art, id_entity=ent.id,
+                                        entity_name=word,
                                         occurences=OccursInDoc)
-                updateEntities(x, OccursInDoc)
+                updateEntities(ent, word, OccursInDoc)
             else:
-                createEntity(x, OccursInDoc)
+                id_ent=createEntity(word, OccursInDoc)
+                EntitiesInArticle.create(id_article=art, id_entity=id_ent,
+                                        entity_name=word,
+                                        occurences=OccursInDoc)
 
 
 def createEntity(x, occ):
     print("Making:"+str(x))
-    Entities.create(entity_name=x, TotalOccurs=occ, MaxOccursinDoc=occ)
+    ent=Entities.create(entity_name=x, TotalOccurs=occ, MaxOccursinDoc=occ)
+    ent.save()
+    return ent.id
 
-def updateEntities(x, occ):
+def updateEntities(ent, x, occ):
     print("Updating:"+str(x))
-    tot=Entities.get(Entities.entity_name==x).TotalOccurs
-    occ=occ+tot
-    Entities.update(TotalOccurs=occ).where(Entities.entity_name==x)
-    most=Entities.get(Entities.entity_name==x).MaxOccursinDoc
-    if occ>most:
-        Entities.update(MaxOccursinDoc=occ).where(Entities.entity_name==x)
+    #tot=Entities.get(Entities.entity_name==x).TotalOccurs
+    ent.TotalOccurs=occ+ent.TotalOccurs
+    #Entities.update(TotalOccurs=occ).where(Entities.entity_name==x)
+    #most=Entities.get(Entities.entity_name==x).MaxOccursinDoc
+    if occ>ent.MaxOccursinDoc:
+        #Entities.update(MaxOccursinDoc=occ).where(Entities.entity_name==x)
+        ent.MaxOccursinDoc=occ
+    print(ent.save())
 
 
 

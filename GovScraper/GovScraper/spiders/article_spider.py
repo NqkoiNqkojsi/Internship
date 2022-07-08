@@ -26,8 +26,9 @@ class GovArticleSpider(scrapy.Spider):
         if len(pageText)>1:
             # using list comprehension to
             # Remove blank spaces from List
-            pageText = [i for i in pageText if i != " "]
-            pageTitle=article.css("h1::text").getall()
+            pageText = [i for i in pageText if i != " " and i != u"\xa0"]
+            pageTitle=article.css("h1::text").get()
+            pageTitle= pageTitle.replace(u'\xa0', u' ')
             pageImgs=article.css('img').xpath('@src').get() #gets the adresses of the displayed images
             pageVideo=article.css('iframe').xpath('@src').getall() #gets the link to an embedded video if it has otherwise returns null
             if len(pageText[0])>13:

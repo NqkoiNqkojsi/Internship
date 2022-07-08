@@ -44,7 +44,7 @@ def DeleteArticles():
         db.connect()
     except:
         pass
-    query=ArticleModel.delete().where(ArticleModel.id>150)
+    query=ArticleModel.delete().where(ArticleModel.id>5)
     query.execute()
     db.close()
 
