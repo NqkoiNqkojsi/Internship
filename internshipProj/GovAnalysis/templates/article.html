@@ -125,7 +125,7 @@
                                 words.forEach(text => {
                                         lastOcc=0;
                                         while(lastOcc>= 0 && TextLen>lastOcc){
-                                                let index = innerHTML.indexOf(text, lastOcc+1);
+                                                let index = innerHTML.indexOf(text, lastOcc+30);
                                                 if (index >= 0) { 
                                                         innerHTML = innerHTML.substring(0,index) + "<span class='highlight'>" + innerHTML.substring(index,index+text.length) + "</span>" + innerHTML.substring(index + text.length);
                                                         inputText.innerHTML = innerHTML;
@@ -134,7 +134,6 @@
                                                 }
                                                 lastOcc=index + text.length;
                                                 console.log(lastOcc)
-                                                console.log(innerHTML.length)
                                         }
                                 });
                                 

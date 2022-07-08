@@ -35,6 +35,7 @@ def Article(request, id):
         cursor = conn.cursor()
         cursor.execute("select * from entitiesinarticle where id_article="+str(id))
         rowsEnt = cursor.fetchall()
+        rowsEnt=SortTopInArticle(rowsEnt)
         for rowent in rowsEnt:
             TopEnt.append([str(rowent[2]), rowent[3], rowent[4]])
         context["TopEnt"]=TopEnt
@@ -86,6 +87,7 @@ def EntityOverview(request, id):
         cursor = conn.cursor()
         cursor.execute("select id_article, occurences from entitiesinarticle where id_entity="+str(row[0]))
         rowsEnt = cursor.fetchall()
+        rowsEnt=SortEntitiesInArticle(rowsEnt)
         for rowent in rowsEnt:
             cursor.execute("select title from articlemodel where id="+str(rowent[0]))
             title = cursor.fetchall()
@@ -106,4 +108,8 @@ def SortAricles(listArt):
 
 def SortEntitiesInArticle(listEnt):
     listEnt.sort(key=lambda x: x[1])
-    return listEnt
+    return list(reversed(listEnt))
+
+def SortTopInArticle(listEnt):
+    listEnt.sort(key=lambda x: x[4])
+    return list(reversed(listEnt))
