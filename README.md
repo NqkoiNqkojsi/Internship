@@ -40,11 +40,11 @@ Lastly, go to http://127.0.0.1:8000/.</br>
 
 <h2>Tour around the site</h2>
 You will be greated by the index page.</br>
-![index_page](img/index.PNG)
+![Index](img/index.png)
 From there click on the articles link in the navbar to be able to select from every article present on the goverment site.</br>
-![article_list](img/AllArticles.PNG)
+![Article](img/AllArticles.png)
 They are sorted by date and reach back to around 2017 with about 2300 articles present. Clicking on a row will lead you to that article's page.</br>
-![article](img/articleShow.PNG)
+![Article](img/articleShow.png)
 The field is split in two. On the first side we can see the article with the title, image and body with all of the entities highlighted. And on the second is a table with the entities sorted by occurences in the article. Clicking on a row here, will lead us to the the page of the specified entity.</br>
-![entity_overv](img/EntityOverv.PNG)
+![Entity](img/EntityOverv.png)
 On this page is shown the stats for the word amongst all articles and where it is found and consequently visit the specified article.</br>
