@@ -37,8 +37,7 @@
                                 </nav>
                         </div>
                         <div class="content-container">
-                            <h2>Full-width Table</h2>
-                            <p>Use width: 100% to create a full-width table:</p>
+                            <h2>All articles</h2>
                             <table>
                                 <tr>
                                     <td>ID</td>
@@ -99,17 +98,20 @@
                     function RensponsiveButtons() {
                       //document.getElementById("NotTop").classList.toggle("show");
                       But1=document.getElementById("1But");
+                      console.log(But1.innerHTML)
                       if(But1.innerHTML=="1"){
                         But1.classList.toggle("active");
                         return;
                       }
                       But5=document.getElementById("4But");
+                      console.log(But5.innerHTML)
                       if(But5.innerHTML=="-1"){
                         But1.classList.toggle("active");
                         return;
                       }
                       But2=document.getElementById("2But");
-                      But1.classList.toggle("active");
+                      console.log(But2.innerHTML)
+                      But2.classList.toggle("active");
                     }
 
                     function GenerateLinks(node){

@@ -60,8 +60,12 @@ def ListArticle(request, page):
     numb4=page+4
     if art_lenght==numb4:
         numb4=-1
-    context=dict({"art":page_obj,
-     "numb0":page, "numb1":page+1, "numb2":page+2, "numb3":page+3, "numb4":numb4})
+    if page==1:
+        context=dict({"art":page_obj,
+        "numb0":page, "numb1":page+1, "numb2":page+2, "numb3":page+3, "numb4":numb4})
+    else:
+        context=dict({"art":page_obj,
+        "numb0":page-1, "numb1":page, "numb2":page+1, "numb3":page+2, "numb4":numb4-1})
     return render(request, 'articlesList.html', context)
 
 
