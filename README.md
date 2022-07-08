@@ -40,11 +40,11 @@ Lastly, go to http://127.0.0.1:8000/.</br>
 
 <h2>Tour around the site</h2>
 You will be greated by the index page.</br>
-![index page](https://github.com/NqkoiNqkojsi/Internship/blob/main/img/index.PNG?raw=true)
+![index_page](https://github.com/NqkoiNqkojsi/Internship/blob/main/img/index.PNG?raw=true)
 From there click on the articles link in the navbar to be able to select from every article present on the goverment site.</br>
-![article list](https://github.com/NqkoiNqkojsi/Internship/blob/main/img/AllArticles.PNG?raw=true)
+![article_list](https://github.com/NqkoiNqkojsi/Internship/blob/main/img/AllArticles.PNG?raw=true)
 They are sorted by date and reach back to around 2017 with about 2300 articles present. Clicking on a row will lead you to that article's page.</br>
-![article list](https://github.com/NqkoiNqkojsi/Internship/blob/main/img/articleShow.PNG?raw=true)
+![article](https://github.com/NqkoiNqkojsi/Internship/blob/main/img/articleShow.PNG?raw=true)
 The field is split in two. On the first side we can see the article with the title, image and body with all of the entities highlighted. And on the second is a table with the entities sorted by occurences in the article. Clicking on a row here, will lead us to the the page of the specified entity.</br>
-![article list](https://github.com/NqkoiNqkojsi/Internship/blob/main/img/EntityOverv.PNG?raw=true)
+![entity_overv](https://github.com/NqkoiNqkojsi/Internship/blob/main/img/EntityOverv.PNG?raw=true)
 On this page is shown the stats for the word amongst all articles and where it is found and consequently visit the specified article.</br>
