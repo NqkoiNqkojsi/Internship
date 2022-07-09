@@ -55,4 +55,4 @@ The field is split in two. On the first side we can see the article with the tit
 <p>
     <img src="Assets/EntityOverv.PNG"/>
 </p></br>
-On this page is shown the stats for the word amongst all articles and where it is found and consequently visit the specified article.</br>
+On this page is shown the stats for the word amongst all articles and where it is found. Consequently, you can visit the specified article.</br>
