@@ -97,20 +97,21 @@
                     toggle between hiding and showing the dropdown content */
                     function RensponsiveButtons() {
                       //document.getElementById("NotTop").classList.toggle("show");
+                      let page=window.location.href;
+                      let startOfNumb=page.lastIndexOf("/");
+                      let numb=page.substring(startOfNumb+1);
+                      console.log(numb);
                       But1=document.getElementById("1But");
-                      console.log(But1.innerHTML)
-                      if(But1.innerHTML=="1"){
+                      if(numb=="1"){
                         But1.classList.toggle("active");
                         return;
                       }
                       But5=document.getElementById("4But");
-                      console.log(But5.innerHTML)
                       if(But5.innerHTML=="-1"){
                         But1.classList.toggle("active");
                         return;
                       }
                       But2=document.getElementById("2But");
-                      console.log(But2.innerHTML)
                       But2.classList.toggle("active");
                     }
 

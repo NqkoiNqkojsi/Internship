@@ -41,7 +41,6 @@ def Article(request, id):
         context["TopEnt"]=TopEnt
     finally:
         conn.close()
-    print(context)
     return render(request, 'article.html', context)
 
 
@@ -93,7 +92,6 @@ def EntityOverview(request, id):
             title = cursor.fetchall()
             EntArt.append([str(rowent[0]), title[0][0], str(rowent[1])])
         context["len"]=len(rowsEnt)
-        print(EntArt)
         context["EntArt"]=EntArt
     finally:
         conn.close()
