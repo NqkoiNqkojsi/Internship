@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.http import HttpResponse
-from GovAnalysis.models import Articles, EntitiesInArticle
+from rest_framework import viewsets
+from .serializers import EntitiesSerializer
+from GovAnalysis.models import Articles, EntitiesInArticle, Entities
 from django.template import Context, Template
 from django.core.paginator import Paginator
 from datetime import datetime
@@ -98,6 +100,10 @@ def EntityOverview(request, id):
 
     return render(request, 'entitiesOverv.html', context)
 
+
+class EntityViewAPI(viewsets.ModelViewSet):
+    serializer_class = EntitiesSerializer
+    queryset = Entities.objects.all()
 
 
 def SortAricles(listArt):

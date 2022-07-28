@@ -55,8 +55,10 @@ def top3_ranking(l):
 
 # DB setup
 #db = SqliteDatabase('articles.db', pragmas={'journal_mode': 'wal'})
-db = SqliteDatabase('articles.db')
-introspector = Introspector.from_database(db)
+dbArt = SqliteDatabase('articles.db')
+dbEnt = SqliteDatabase('entities.db')
+dbEntInArt = SqliteDatabase('entitiesInArticles.db')
+introspectorArt = Introspector.from_database(dbArt)
 NLPWords = []
 
 # Setting up the NLP
@@ -64,15 +66,23 @@ NLPWords = []
 classla.download('bg')
 nlp = classla.Pipeline('bg', processors='ner, tokenize')
 
-articles_src = introspector.generate_models()
+articles_src = introspectorArt.generate_models()
 Articles = articles_src['articlemodel']
 
 
-class BaseModel(Model):
+class ArtModel(Model):
     class Meta:
-        database = db
+        database = dbArt
 
-class ArticleModel(BaseModel):
+class EntModel(Model):
+    class Meta:
+        database = dbEnt
+
+class EntInArtModel(Model):
+    class Meta:
+        database = dbEntInArt
+
+class ArticleModel(ArtModel):
     id = AutoField(unique=True)
     date = DateTimeField(default=datetime.now())
     url = TextField(unique=True)
@@ -81,14 +91,14 @@ class ArticleModel(BaseModel):
     title = TextField()
     body = TextField()
 
-class Entities(BaseModel):
+class Entities(EntModel):
     id = AutoField(unique=True)
     entity_name = TextField(default='')
     TotalOccurs = IntegerField(default=0)
     MaxOccursinDoc = IntegerField(default=0)
 
 
-class EntitiesInArticle(BaseModel):
+class EntitiesInArticle(EntInArtModel):
     id = AutoField(unique=True)
     id_article = IntegerField()
     id_entity = IntegerField()
@@ -144,17 +154,22 @@ def updateEntities(ent, x, occ):
 
 
 def startDB():
-    db.connect()
+    dbArt.connect()
+    dbEnt.connect()
+    dbEntInArt.connect()
     Entities.delete()
     EntitiesInArticle.delete()
-    db.create_tables([Articles, Entities, EntitiesInArticle], safe=True)
+    dbArt.create_tables([Articles], safe=True)
+    dbEnt.create_tables([Entities], safe=True)
+    dbEntInArt.create_tables([EntitiesInArticle], safe=True)
     updateInArts()
 
 
 if __name__ == '__main__':
-    db.close()
+    dbArt.close()
+    dbEnt.close()
+    dbEntInArt.close()
     startDB()
-    cursor = db.execute_sql('select * from entitiesinarticle')
-    for row in cursor.fetchall():
-        print(row)
-    db.close()
+    dbArt.close()
+    dbEnt.close()
+    dbEntInArt.close()
