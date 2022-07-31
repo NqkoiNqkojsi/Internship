@@ -20,6 +20,8 @@ import GovAnalysis.views as views
 
 router = routers.DefaultRouter()
 router.register(r'ent', views.EntityViewAPI, 'Entity')
+router.register(r'entArt', views.EntitiesInArticleViewAPI, 'EntityInArticle')
+router.register(r'art', views.ArticlesViewAPI, 'Articles')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

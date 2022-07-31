@@ -6,17 +6,17 @@
 
 # useful for handling different item types with a single interface
 from dateutil import parser
-from model.articles import ArticleModel
+from model.articles import Articles
 from model.link import LinkModel
 from GovScraper.items import ArticleItem, LinkItem
 from pprint import pprint
 
 
 class GovArticlePipeline:
-    def process_item(self, item, spider) -> ArticleModel:
+    def process_item(self, item, spider) -> Articles:
         #checks if the item is for this pipeline
         try:
-            article = ArticleModel.create(**item)
+            article = Articles.create(**item)
             return article
         except:
             pass
@@ -40,10 +40,10 @@ class GovUpdateLinkPipeline:
             pass
 
 class GovUpdateArticlePipeline:
-    def process_item(self, item, spider) -> ArticleModel:
+    def process_item(self, item, spider) -> Articles:
         #checks if the item is for this pipeline
         try:
-            article = ArticleModel.create(**item)
+            article = Articles.create(**item)
             return article
         except:
             pass

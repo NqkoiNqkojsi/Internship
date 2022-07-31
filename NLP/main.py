@@ -55,9 +55,9 @@ def top3_ranking(l):
 
 # DB setup
 #db = SqliteDatabase('articles.db', pragmas={'journal_mode': 'wal'})
-dbArt = SqliteDatabase('articles.db')
-dbEnt = SqliteDatabase('entities.db')
-dbEntInArt = SqliteDatabase('entitiesInArticles.db')
+dbArt = SqliteDatabase('internshipProj/articles.db')
+dbEnt = SqliteDatabase('internshipProj/entities.db')
+dbEntInArt = SqliteDatabase('internshipProj/entitiesInArticles.db')
 introspectorArt = Introspector.from_database(dbArt)
 NLPWords = []
 
@@ -67,7 +67,7 @@ classla.download('bg')
 nlp = classla.Pipeline('bg', processors='ner, tokenize')
 
 articles_src = introspectorArt.generate_models()
-Articles = articles_src['articlemodel']
+Articles = articles_src['articles']
 
 
 class ArtModel(Model):
@@ -82,7 +82,7 @@ class EntInArtModel(Model):
     class Meta:
         database = dbEntInArt
 
-class ArticleModel(ArtModel):
+class Article(ArtModel):
     id = AutoField(unique=True)
     date = DateTimeField(default=datetime.now())
     url = TextField(unique=True)
@@ -119,7 +119,7 @@ def updateInArts():
         NLPWords.sort()
         OccursInDoc = 0
         oldWords=[]
-        for word in NLPWords:
+        for word in set(NLPWords):
             if not word in oldWords:
                 OccursInDoc = countOf(NLPWords, word)
                 ent = Entities.get_or_none(Entities.entity_name == word)
@@ -149,7 +149,7 @@ def updateEntities(ent, x, occ):
     ent.TotalOccurs=occ+ent.TotalOccurs
     if occ>ent.MaxOccursinDoc:
         ent.MaxOccursinDoc=occ
-    print(ent.save())
+    ent.save()
 
 
 
