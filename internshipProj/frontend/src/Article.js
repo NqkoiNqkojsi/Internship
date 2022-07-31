@@ -40,8 +40,10 @@ class Article extends Component {
 
 	generateList = () => {
 		let params = useParams();
+		console.log("params:");
+		console.log(params);
 		axios
-		.get("http://localhost:8000/api/entArt?id_article="+params.artID)
+		.get("http://localhost:8000/api/entArt?id_article="+params.artID+"&format=json")
 		.then((res) => this.setState({ entList: res.data }))
 		.catch((err) => console.log(err));
 	};
@@ -49,8 +51,8 @@ class Article extends Component {
 	generateArticle = () => {
 		let params = useParams();
 		axios
-		.get("http://localhost:8000/api/art/"+params.artID)
-		.then((res) => this.setState({ article: res.data[0] }))
+		.get("http://localhost:8000/api/art/"+params.artID+"&format=json")
+		.then((res) => this.setState({ article: res.data}))
 		.catch((err) => console.log(err));
 	};
 

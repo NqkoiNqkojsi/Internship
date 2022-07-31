@@ -7,6 +7,18 @@
   pointer-events: none;
 }
 
+body {
+  display: grid;
+  grid-template-areas: "aside-left page-container aside-right";
+  grid-template-columns: 1fr minmax(300px, 1024px) 1fr;
+  z-index: -1;
+  background-image: url("..\\public\\images\\output-onlinepngtools10.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed; 
+  background-position: center;
+  font-family: 'Finlandica', sans-serif;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

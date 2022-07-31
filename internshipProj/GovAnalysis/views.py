@@ -93,16 +93,19 @@ def EntityOverview(request, id):
 
 
 class EntityViewAPI(viewsets.ModelViewSet):
+    print("entity request")
     serializer_class = EntitiesSerializer
     queryset = Entities.objects.all()
 
 class EntitiesInArticleViewAPI(viewsets.ModelViewSet):
+    print("entityArticle request")
     serializer_class = EntitiesInArticleSerializer
     queryset = EntitiesInArticle.objects.all()
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['id_article', 'id_entity']
 
 class ArticlesViewAPI(viewsets.ModelViewSet):
+    print("Article request")
     serializer_class = ArticlesSerializer
     queryset = Articles.objects.all()
     filter_backends = [DjangoFilterBackend]
