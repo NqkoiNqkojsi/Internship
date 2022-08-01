@@ -43,7 +43,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'GovAnalysis.apps.GovanalysisConfig'
+    'GovAnalysis.apps.GovanalysisConfig',
+    'corsheaders',
+    'rest_framework',
+    'django_filters'
 ]
 
 MIDDLEWARE = [
@@ -54,6 +57,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
 ]
 
 ROOT_URLCONF = 'internshipProj.urls'
@@ -87,11 +91,22 @@ DATABASES = {
     },
     'articles':{
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': ".."/ BASE_DIR / 'articles.db',
+        'NAME': BASE_DIR / 'articles.db',
+    },
+    'entities':{
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'entities.db',
+    },
+    'entitiesInArticle':{
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'entitiesInArticles.db',
     }
 }
+DATABASE_ROUTERS = ('GovAnalysis.dbrouters.MyDBRouter',)
 
-
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+}
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
@@ -132,3 +147,8 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+CORS_ORIGIN_WHITELIST = [
+     'http://localhost:3000'
+]

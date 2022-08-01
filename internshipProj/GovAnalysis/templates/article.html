@@ -93,6 +93,15 @@
             </div>
                 </div>
                 <script>
+                        let url=window.location.href;
+                        let id=url.substr(30);
+                        const xmlhttp = new XMLHttpRequest();
+                        xmlhttp.onload = function() {
+                                const EntObj = JSON.parse(this.responseText);
+                                console.log(EntObj);
+                        }
+                        xmlhttp.open("GET", "../api/entArt/?id_article="+id+"&format=json");
+                        xmlhttp.send();
                     /* When the user clicks on the button, 
                     toggle between hiding and showing the dropdown content */
                         function ActivateDropdown() {
@@ -118,22 +127,21 @@
                         }
 
                         function highlight(words) {
-                                var inputText = document.getElementById("artBody");
-                                var innerHTML = inputText.innerHTML;
+                                let inputText = document.getElementById("artBody");
+                                let innerHTML = inputText.innerHTML;
                                 let TextLen=innerHTML.length
-                                var lastOcc=0;
+                                let lastOcc=0;
                                 words.forEach(text => {
                                         lastOcc=0;
                                         while(lastOcc>= 0 && TextLen>lastOcc){
-                                                let index = innerHTML.indexOf(text, lastOcc+30);
+                                                let index = innerHTML.indexOf(text, lastOcc);
                                                 if (index >= 0) { 
                                                         innerHTML = innerHTML.substring(0,index) + "<span class='highlight'>" + innerHTML.substring(index,index+text.length) + "</span>" + innerHTML.substring(index + text.length);
                                                         inputText.innerHTML = innerHTML;
                                                 }else{
                                                         break;
                                                 }
-                                                lastOcc=index + text.length;
-                                                console.log(lastOcc)
+                                                lastOcc=index + text.length+30;
                                         }
                                 });
                                 

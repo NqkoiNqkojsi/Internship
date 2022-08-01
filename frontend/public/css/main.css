@@ -1,0 +1,224 @@
+@import url('https://fonts.googleapis.com/css2?family=Finlandica&family=Lobster&display=swap');
+html {
+    --watermelon: #FF3B3F;
+    --carbon: #A9A9A9;
+    --sky: #CAEBF2;
+    --neutral:#EFEFEF;
+    --animation-dur: 0.2s;
+}
+
+body {
+    display: grid;
+    grid-template-areas: "aside-left page-container aside-right";
+    grid-template-columns: 1fr minmax(300px, 1024px) 1fr;
+    z-index: -1;
+    background-image: url("..\\images\\output-onlinepngtools10.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
+    background-position: center;
+    font-family: 'Finlandica', sans-serif;
+    min-height: 100vh;
+}
+
+.page-aside {
+    display: block;
+}
+
+.page-aside.left {
+    grid-area: aside-left;
+}
+
+.page-aside.right {
+    grid-area: aside-right;
+}
+
+.page-container{
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas: 
+        "header-area"
+        "content-area"
+        "footer-area";
+    grid-area: page-container;
+    opacity: unset;
+}
+
+.header-container {
+    grid-area: header-area;
+}
+
+.content-container {
+    grid-area: content-area;
+}
+
+.footer-container {
+    grid-area: footer-area;
+}
+
+
+.navbar-brand img {
+    width: 30px;
+    height: 30px;
+}
+
+nav {
+    border-radius: 0px 0px 10px 10px;
+    border-bottom: 1px solid grey;
+    box-shadow: 0 1px 5px grey;
+    background-image: linear-gradient(0deg, rgb(207, 207, 207) 0%, white 20%);
+}
+
+@keyframes underlineHoverAnimation {
+    from {border-bottom: 3px dashed #fff;}
+    to {border-bottom: 3px dashed var(--watermelon);}
+}
+
+@keyframes textHoverAnimation {
+    from {color: #000;}
+    to {color: var(--watermelon);}
+}
+
+.nav-link.link:hover {
+    cursor: pointer;
+    padding-bottom: 5px;
+    animation-name: underlineHoverAnimation;
+    animation-duration: var(--animation-dur);
+    animation-fill-mode: forwards;
+}
+
+.navbar-brand:hover {
+    animation-name: textHoverAnimation;
+    animation-duration: var(--animation-dur);
+    animation-fill-mode: forwards;
+}
+
+.content-container {
+    font-size: 120%;
+    font-weight: bolder;
+    display: block;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: 1em repeat(3, auto) repeat(2, 1fr) 1em;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+.top-header{
+    grid-area: 2 / 2 / 3 / 5;
+}
+
+.top-header span.snt-br {
+    content: "\a";
+    white-space: pre;
+    color:var(--watermelon);
+}
+
+.firstP {
+    grid-area: 3 / 3 / 4 / 5;
+    font-size:120%;
+}
+
+.secondP {
+    grid-area: 4 / 4 / 5 / 5;
+    font-size:130%;
+}
+
+.thirdP {
+    grid-area: 5 / 4 / 6 / 6;
+}
+
+.fourthP {
+    grid-area: 6 / 4 / 7 / 6;
+}
+
+.link-norm {
+    color: inherit;
+    text-decoration: none;
+    text-decoration-style: dashed;
+    width:3em;
+    border-bottom: 2px dashed var(--watermelon);
+}
+
+.link-norm:hover {
+    animation-name: textHoverAnimation;
+    animation-duration: var(--animation-dur);
+    animation-fill-mode: forwards;
+}
+
+.button-upper {
+    grid-area: 5 / 6 / 6 / 7;
+    justify-self: center;
+    align-self: top;
+    height: fit-content;
+}
+
+.button-lower {
+    grid-area: 6 / 6 / 7 / 7;
+    justify-self: center;
+    align-self: top;
+    height: fit-content;
+}
+
+.footer-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: auto calc(auto+1em);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    border-radius: 10px 10px 0px 0px;
+    border-top: 1px solid grey;
+    box-shadow: 1px 0px 5px grey;
+    background-image: linear-gradient(180deg, rgb(207, 207, 207) 0%, white 7%);
+    padding-top: 0.5em;
+}
+
+.footer-left {
+    grid-area: 1 / 1 / 2 / 4;
+    justify-self: center;
+}
+
+.footer-right {
+    grid-area: 1 / 4 / 2 / 6;
+    justify-self: center;
+}
+
+.credits-label {
+    padding-left: 35%;
+}
+
+.credits-list {
+    display: grid;
+    grid-template-columns: 10em auto;
+}
+
+.credits-column-left {
+    grid-area: 1 / 1 / 2 / 2;
+}
+
+.credits-column-right {
+    grid-area: 1 / 2 / 2 / 3;
+}
+
+.footer-div-line {
+    grid-area: 1 / 4 / 2 / 6;
+    justify-self: left;
+    align-self: end;
+    height: 90%;
+    border-left: 3px solid var(--sky);
+    border-radius: 2px;
+}
+
+.footer-bottom {
+    grid-area: 2 / 1 / 3 / 6;
+    justify-self: center;
+    align-self: center;
+}
+.column1 {
+    float: left;
+    padding: 2%;
+    border-right:2px solid black; 
+    width:60%;
+}
+.column2 {
+    float: left;
+    width:32%;
+    padding: 2%;
+}

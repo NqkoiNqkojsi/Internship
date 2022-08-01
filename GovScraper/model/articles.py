@@ -10,7 +10,7 @@ from peewee import (
     DateTimeField
 )
 
-db = SqliteDatabase("articles.db")
+db = SqliteDatabase("internshipProj/articles.db")
 
 
 class BaseModel(Model):
@@ -18,7 +18,7 @@ class BaseModel(Model):
         database = db
 
 
-class ArticleModel(BaseModel):
+class Articles(BaseModel):
     id = AutoField(unique=True)
     date = DateTimeField(default=datetime.now())
     url = TextField(unique=True)
@@ -32,7 +32,7 @@ def ReturnArticles():
         db.connect()
     except:
         pass
-    cursor = db.execute_sql('SELECT body FROM articlemodel')
+    cursor = db.execute_sql('SELECT body FROM article')
     bodies=[]
     for row in cursor.fetchall():
         bodies.append(row[0])
@@ -44,14 +44,14 @@ def DeleteArticles():
         db.connect()
     except:
         pass
-    query=ArticleModel.delete().where(ArticleModel.id>5)
+    query=Articles.delete().where(Articles.id>5)
     query.execute()
     db.close()
 
 
 def initialize_db():
     db.connect()
-    db.create_tables([ArticleModel], safe=True)
+    db.create_tables([Articles], safe=True)
     db.close()
 
 if __name__ == '__main__':

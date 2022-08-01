@@ -1,7 +1,11 @@
 from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.http import HttpResponse
-from GovAnalysis.models import Articles, EntitiesInArticle
+from rest_framework import viewsets, generics
+import django_filters.rest_framework
+from django_filters.rest_framework import DjangoFilterBackend
+from .serializers import EntitiesSerializer, EntitiesInArticleSerializer, ArticlesSerializer
+from GovAnalysis.models import Articles, EntitiesInArticle, Entities
 from django.template import Context, Template
 from django.core.paginator import Paginator
 from datetime import datetime
@@ -20,24 +24,20 @@ def entitiesOverv(request):
     return render(request, 'entitiesOverv.html')
 
 def Article(request, id):
-    conn = sqliteConnection = sqlite3.connect('../articles.db')
+    
     try:
-        cursor = conn.cursor()
-        cursor.execute("select * from articlemodel where id="+str(id))
-        rows = cursor.fetchall()
-        for row in rows:
-            context=dict({"imgUrl":row[3], "titleCont":row[5], "bodyCont":row[6], "TopEnt":None})
+        row=Articles.objects.get(id=id)
+        context=dict({"imgUrl":row.images, "titleCont":row.title, "bodyCont":row.body, "TopEnt":None})
     finally:
         pass
+    conn = sqliteConnection = sqlite3.connect('entitiesInArticles.db')    
     TopEnt=[]
     BotEnt=[]
     try:
-        cursor = conn.cursor()
-        cursor.execute("select * from entitiesinarticle where id_article="+str(id))
-        rowsEnt = cursor.fetchall()
+        rowsEnt=list(EntitiesInArticle.objects.filter(id_article=id))
         rowsEnt=SortTopInArticle(rowsEnt)
         for rowent in rowsEnt:
-            TopEnt.append([str(rowent[2]), rowent[3], rowent[4]])
+            TopEnt.append([str(rowent.id_entity), rowent.entity_name, rowent.occurences])
         context["TopEnt"]=TopEnt
     finally:
         conn.close()
@@ -45,10 +45,10 @@ def Article(request, id):
 
 
 def ListArticle(request, page):
-    conn = sqliteConnection = sqlite3.connect('../articles.db')
+    conn = sqliteConnection = sqlite3.connect('articles.db')
     try:
         cursor = conn.cursor()
-        cursor.execute("select id, title, date from articlemodel")
+        cursor.execute("select id, title, date from articles")
         rows = cursor.fetchall()
     finally:
         conn.close()
@@ -70,34 +70,45 @@ def ListArticle(request, page):
 
 
 def EntityOverview(request, id):
-    conn = sqliteConnection = sqlite3.connect('../articles.db')
     TopEnt=[]
     BotEnt=[]
     try:
-        cursor = conn.cursor()
-        cursor.execute("select * from entities where id="+str(id))
-        rows = cursor.fetchall()
-        for row in rows:
-            context=dict({"word":row[1], "len":row[0], "TotOcc":row[2], "MaxOcc":row[3]})
+        rowEnt=Entities.objects.get(id=id)
+        context=dict({"word":rowEnt.entity_name, "len":rowEnt.id, "TotOcc":rowEnt.TotalOccurs, "MaxOcc":rowEnt.MaxOccursinDoc})
     finally:
         pass
     EntArt=[]
     try:
-        cursor = conn.cursor()
-        cursor.execute("select id_article, occurences from entitiesinarticle where id_entity="+str(row[0]))
-        rowsEnt = cursor.fetchall()
-        rowsEnt=SortEntitiesInArticle(rowsEnt)
-        for rowent in rowsEnt:
-            cursor.execute("select title from articlemodel where id="+str(rowent[0]))
-            title = cursor.fetchall()
-            EntArt.append([str(rowent[0]), title[0][0], str(rowent[1])])
-        context["len"]=len(rowsEnt)
+        rowsEntArt=list(EntitiesInArticle.objects.filter(id_entity=rowEnt.id))
+        rowsEntArt=SortEntitiesInArticle(rowsEntArt)
+        for rowent in rowsEntArt:
+            rowArt=Articles.objects.get(id=rowent.id_article)
+            EntArt.append([str(rowArt.id), rowArt.title, str(rowent.occurences)])
+        context["len"]=len(rowsEntArt)
         context["EntArt"]=EntArt
     finally:
-        conn.close()
+        pass
 
     return render(request, 'entitiesOverv.html', context)
 
+
+class EntityViewAPI(viewsets.ModelViewSet):
+    print("entity request")
+    serializer_class = EntitiesSerializer
+    queryset = Entities.objects.all()
+
+class EntitiesInArticleViewAPI(viewsets.ModelViewSet):
+    print("entityArticle request")
+    serializer_class = EntitiesInArticleSerializer
+    queryset = EntitiesInArticle.objects.all()
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['id_article', 'id_entity']
+
+class ArticlesViewAPI(viewsets.ModelViewSet):
+    print("Article request")
+    serializer_class = ArticlesSerializer
+    queryset = Articles.objects.all()
+    filter_backends = [DjangoFilterBackend]
 
 
 def SortAricles(listArt):
@@ -105,9 +116,9 @@ def SortAricles(listArt):
     return list(reversed(listArt))
 
 def SortEntitiesInArticle(listEnt):
-    listEnt.sort(key=lambda x: x[1])
+    listEnt.sort(key=lambda x: x.occurences)
     return list(reversed(listEnt))
 
 def SortTopInArticle(listEnt):
-    listEnt.sort(key=lambda x: x[4])
+    listEnt.sort(key=lambda x: x.occurences)
     return list(reversed(listEnt))

@@ -14,15 +14,22 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-import GovAnalysis.views
+from django.urls import path, include
+from rest_framework import routers
+import GovAnalysis.views as views
+
+router = routers.DefaultRouter()
+router.register(r'ent', views.EntityViewAPI, 'Entity')
+router.register(r'entArt', views.EntitiesInArticleViewAPI, 'EntityInArticle')
+router.register(r'art', views.ArticlesViewAPI, 'Articles')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', GovAnalysis.views.index),
-    path('articlesList/', GovAnalysis.views.articlesList),
-    path('entitiesOverv/', GovAnalysis.views.entitiesOverv),
-    path('article/<str:id>', GovAnalysis.views.Article),
-    path('list-of-articles/<int:page>', GovAnalysis.views.ListArticle),
-    path('entity-overview/<str:id>', GovAnalysis.views.EntityOverview),
+    path('', views.index),
+    path('articlesList/', views.articlesList),
+    path('entitiesOverv/', views.entitiesOverv),
+    path('article/<str:id>', views.Article),
+    path('list-of-articles/<int:page>', views.ListArticle),
+    path('entity-overview/<str:id>', views.EntityOverview),
+    path('api/', include(router.urls))
 ]
