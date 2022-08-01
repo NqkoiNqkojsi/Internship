@@ -7,6 +7,13 @@ First start Virtual Environment and then install:</br>
 <pre>pip install scrapy_jsonschema</pre>
 <pre>pip install django</pre>
 <pre>pip install classla</pre>
+<pre>npm install react-router-dom@6</pre>
+<pre>npm install axios</pre>
+<pre>npm install bootstrap@4.6.0 reactstrap@8.9.0 --legacy-peer-deps</pre>
+<pre>npx create-react-app frontend</pre>
+<pre>pip install django_filter</pre>
+<pre>pip install djangorestframework</pre>
+<pre>pip install djangorestframework django-cors-headers</pre>
 </br>
 
 <h3>To start The Crawler</h3>
