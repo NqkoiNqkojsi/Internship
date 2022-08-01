@@ -211,3 +211,14 @@ nav {
     justify-self: center;
     align-self: center;
 }
+.column1 {
+    float: left;
+    padding: 2%;
+    border-right:2px solid black; 
+    width:60%;
+}
+.column2 {
+    float: left;
+    width:32%;
+    padding: 2%;
+}
