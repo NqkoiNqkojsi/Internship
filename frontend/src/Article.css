@@ -241,17 +241,6 @@ nav {
     align-content: center;
     color: black;
   }
-  table {
-    border-collapse: collapse;
-    width: 100%;
-    border: 1px solid #ddd;
-  }
-  
-  th, td {
-    text-align: left;
-    padding: 16px;
-  }
-
   .row1{
     background-color: #A9A9A9;
   }
@@ -260,4 +249,22 @@ nav {
   }
   .highlight {
     background-color: yellow;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1.2px solid rgb(170, 170, 170);
+  }
+  
+  th, td {
+    text-align: left;
+    padding: 16px;
+  }
+  .rowNew{
+    cursor: pointer;
+    transition: 0.4s;
+    border: 0.1px solid rgb(190, 190, 190);
+  }
+  .rowNew:hover{
+    opacity: 0.7;
   }

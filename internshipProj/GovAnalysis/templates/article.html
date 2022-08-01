@@ -134,14 +134,14 @@
                                 words.forEach(text => {
                                         lastOcc=0;
                                         while(lastOcc>= 0 && TextLen>lastOcc){
-                                                let index = innerHTML.indexOf(text, lastOcc+30);
+                                                let index = innerHTML.indexOf(text, lastOcc);
                                                 if (index >= 0) { 
                                                         innerHTML = innerHTML.substring(0,index) + "<span class='highlight'>" + innerHTML.substring(index,index+text.length) + "</span>" + innerHTML.substring(index + text.length);
                                                         inputText.innerHTML = innerHTML;
                                                 }else{
                                                         break;
                                                 }
-                                                lastOcc=index + text.length;
+                                                lastOcc=index + text.length+30;
                                         }
                                 });
                                 
